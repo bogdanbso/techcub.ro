@@ -1,4 +1,4 @@
-import { BRAND_NAME } from './brand';
+import { BRAND_NAME, SITE_URL } from './brand';
 
 export interface SeoInput {
   title: string;
@@ -7,8 +7,7 @@ export interface SeoInput {
 }
 
 export function buildSeo({ title, description, path }: SeoInput) {
-  const siteUrl = 'https://exemplu.ro';
-  const canonical = new URL(path, siteUrl).toString();
+  const canonical = new URL(path, SITE_URL).toString();
 
   return {
     title: `${title} · ${BRAND_NAME}`,

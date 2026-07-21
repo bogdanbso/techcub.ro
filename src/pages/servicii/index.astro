@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
-import { BRAND_NAME } from '../../lib/brand';
+import ServiceCard from '../../components/ServiceCard.astro';
 
 const servicii = await getCollection('servicii');
 const serviciiOrdonate = servicii.sort((a, b) => a.data.ordine - b.data.ordine);
@@ -12,10 +12,11 @@ const serviciiOrdonate = servicii.sort((a, b) => a.data.ordine - b.data.ordine);
 
   <section class="grid gap-6 p-8 sm:grid-cols-2">
     {serviciiOrdonate.map((serviciu) => (
-      <a href={`/servicii/${serviciu.data.slug}`} class="rounded-lg border p-6 block hover:opacity-70 transition">
-        <h2 class="text-xl font-semibold">{serviciu.data.titlu}</h2>
-        <p class="text-sm opacity-70 mt-2">{serviciu.data.rezumat}</p>
-      </a>
+      <ServiceCard 
+        titlu={serviciu.data.titlu}
+        rezumat={serviciu.data.rezumat}
+        slug={serviciu.data.slug}
+      />
     ))}
   </section>
 </PageLayout>

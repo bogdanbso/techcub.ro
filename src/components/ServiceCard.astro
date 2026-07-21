@@ -1,0 +1,14 @@
+---
+interface Props {
+  titlu: string;
+  rezumat: string;
+  slug: string;
+}
+
+const { titlu, rezumat, slug } = Astro.props;
+---
+
+<a href={`/servicii/${slug}`} class="rounded-lg border p-6 block hover:opacity-70 transition">
+  <h2 class="text-xl font-semibold">{titlu}</h2>
+  <p class="text-sm opacity-70 mt-2">{rezumat}</p>
+</a>

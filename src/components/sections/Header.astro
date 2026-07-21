@@ -1,12 +1,34 @@
 ---
 import { BRAND_NAME } from '../../lib/brand';
+
+const navItems = [
+  { href: '/', label: 'Acasă' },
+  { href: '/servicii', label: 'Servicii' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <header class="p-6 flex items-center justify-between">
-  <span class="font-bold text-lg">{BRAND_NAME}</span>
+  <a href="/" class="font-bold text-lg">{BRAND_NAME}</a>
   <nav class="flex gap-6 text-sm">
-    <a href="/">Acasă</a>
-    <a href="/servicii">Servicii</a>
-    <a href="/contact">Contact</a>
+    {navItems.map((item) => {
+      const isActive = item.href === '/' 
+        ? currentPath === '/' 
+        : currentPath.startsWith(item.href);
+
+      return (
+        <a 
+          href={item.href} 
+          class:list={[
+            'transition',
+            isActive ? 'font-semibold opacity-100' : 'opacity-70 hover:opacity-100'
+          ]}
+        >
+          {item.label}
+        </a>
+      );
+    })}
   </nav>
 </header>
