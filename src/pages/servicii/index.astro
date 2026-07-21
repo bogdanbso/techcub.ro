@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import { BRAND_NAME } from '../../lib/brand';
+
+const servicii = await getCollection('servicii');
+const serviciiOrdonate = servicii.sort((a, b) => a.data.ordine - b.data.ordine);
+---
+
+<PageLayout title="Servicii" description="Toate serviciile noastre, într-un singur loc.">
+  <h1 class="text-4xl font-bold p-8">Servicii</h1>
+
+  <section class="grid gap-6 p-8 sm:grid-cols-2">
+    {serviciiOrdonate.map((serviciu) => (
+      <a href={`/servicii/${serviciu.data.slug}`} class="rounded-lg border p-6 block hover:opacity-70 transition">
+        <h2 class="text-xl font-semibold">{serviciu.data.titlu}</h2>
+        <p class="text-sm opacity-70 mt-2">{serviciu.data.rezumat}</p>
+      </a>
+    ))}
+  </section>
+</PageLayout>

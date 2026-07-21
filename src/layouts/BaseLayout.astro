@@ -1,0 +1,26 @@
+---
+import '../styles/global.css';
+import { buildSeo } from '../lib/seo';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const seo = buildSeo({ title, description, path: Astro.url.pathname });
+---
+
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{seo.title}</title>
+    <meta name="description" content={seo.description} />
+    <link rel="canonical" href={seo.canonical} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
