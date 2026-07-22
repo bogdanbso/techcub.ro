@@ -1,69 +1,40 @@
 ---
-import { BRAND_NAME } from '../../lib/brand';
+import { getCollection } from 'astro:content';
+import Icon from '../Icon.astro';
 
-const services = [
-  {
-    title: 'Dezvoltare Web',
-    description: 'Site-uri rapide și moderne',
-    href: '/servicii/dezvoltare-web',
-    icon: `<svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>`
-  },
-  {
-    title: 'Service',
-    description: 'Mentenanță și reparații',
-    href: '/servicii/service-tehnic',
-    icon: `<svg class="w-5 h-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>`
-  },
-  {
-    title: 'Servicii IT',
-    description: 'Rețele și infrastructură',
-    href: '/servicii/servicii-it',
-    icon: `<svg class="w-5 h-5 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>`
-  }
-];
+const servicii = await getCollection('servicii');
+const serviciiOrdonate = servicii.sort((a, b) => a.data.ordine - b.data.ordine);
 ---
 
-<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-black/5">
-  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <!-- Logo / Acasă -->
-    <a href="/" class="font-bold text-lg tracking-tight hover:opacity-80 transition flex items-center gap-2" aria-label="Acasă">
-      {BRAND_NAME}
-    </a>
-
-    <!-- Navigație Curată (Doar Servicii & Contact) -->
-    <nav class="flex items-center gap-8">
-      <!-- Dropdown Servicii -->
-      <div class="relative group py-4">
-        <button class="flex items-center gap-1.5 text-sm font-medium text-gray-700 group-hover:text-black transition">
+<header class="border-b border-black/10 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="font-bold text-lg tracking-tight">Tech cu Bogdan</a>
+    
+    <nav class="flex items-center gap-6">
+      <div class="relative group">
+        <button class="flex items-center gap-1.5 text-sm font-medium opacity-80 hover:opacity-100 py-2">
           Servicii
-          <svg class="w-4 h-4 text-gray-400 group-hover:text-black group-hover:rotate-180 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
-
-        <!-- Dropdown Menu Lărgit (w-80) -->
-        <div class="absolute left-1/2 -translate-x-1/2 top-full w-80 p-2 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
-          {services.map(service => (
-            <a 
-              href={service.href} 
-              class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition group/item"
-            >
-              <div class="p-2 bg-gray-50 rounded-md group-hover/item:bg-white transition border border-gray-100/50 shadow-sm shrink-0" Fragment set:html={service.icon} />
-              <div>
-                <div class="text-sm font-semibold text-gray-900 group-hover/item:text-blue-600 transition">
-                  {service.title}
+        
+        <div class="absolute right-0 top-full pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
+          <div class="w-80 p-2 bg-white rounded-2xl border border-black/10 shadow-xl flex flex-col gap-1">
+            {serviciiOrdonate.map((s) => (
+              <a href={`/servicii/${s.id}`} class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 transition">
+                <Icon name={s.data.icon} class="w-4 h-4" />
+                <div>
+                  <div class="text-sm font-bold text-gray-900">{s.data.titlu}</div>
+                  <div class="text-xs text-gray-500 leading-snug">{s.data.rezumat}</div>
                 </div>
-                <div class="text-xs text-gray-500 mt-0.5">
-                  {service.description}
-                </div>
-              </div>
-            </a>
-          ))}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 
-      <!-- Contact -->
-      <a href="/contact" class="text-sm font-medium text-gray-700 hover:text-black transition">
+      <a href="/contact" class="text-sm font-medium opacity-80 hover:opacity-100 transition">
         Contact
       </a>
     </nav>

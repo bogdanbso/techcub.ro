@@ -1,9 +1,9 @@
 ---
 titlu: "Servicii IT"
 slug: "servicii-it"
-rezumat: "Infrastructură stabilă, mentenanță continuă."
-icon: "server"
-ordine: 2
+rezumat: "Suport și administrare IT, Google Workspace & Microsoft 365."
+icon: "globe"
+ordine: 3
 ---
 
 Administrez infrastructură IT pentru persoane fizice care vor un sistem sigur acasă și pentru firme mici care au nevoie de cineva de încredere să le țină rețeaua, conturile și datele în ordine — fără să angajeze un IT intern.

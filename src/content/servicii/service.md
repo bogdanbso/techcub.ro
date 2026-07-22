@@ -1,9 +1,9 @@
 ---
-titlu: "Service tehnic"
-slug: "service-tehnic"
+titlu: "Service"
+slug: "service"
 rezumat: "Mentenanță laptop și desktop, asamblare PC la comandă."
 icon: "wrench"
-ordine: 3
+ordine: 2
 ---
 
 Repar, întrețin și configurez laptopuri și desktop-uri, atât pentru persoane fizice cât și pentru birouri mici. Intervin fizic în Cluj-Napoca, iar pentru diagnoză, configurări sau suport la distanță lucrez remote oriunde în țară.
