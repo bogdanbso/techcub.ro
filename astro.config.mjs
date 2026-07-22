@@ -4,7 +4,15 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://techcub.ro',
-  integrations: [sitemap()],
+  trailingSlash: 'never',
+  prefetch: {
+    defaultStrategy: 'hover',
+  },
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/404'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
