@@ -16,7 +16,8 @@ const serviciiOrdonate = servicii.sort((a, b) => a.data.ordine - b.data.ordine);
         <ServiceCard 
           titlu={serviciu.data.titlu}
           rezumat={serviciu.data.rezumat}
-          slug={serviciu.data.slug}
+          slug={serviciu.id}
+          icon={serviciu.data.icon}
         />
       ))}
     </div>
