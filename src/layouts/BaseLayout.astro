@@ -37,7 +37,7 @@ const schema = buildLocalBusinessSchema();
     <meta name="twitter:description" content={seo.description} />
     <meta name="twitter:image" content={seo.ogImage} />
 
-    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+    {!noindex && <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
     <script is:inline>
       const applyTheme = () => {
@@ -59,7 +59,6 @@ const schema = buildLocalBusinessSchema();
       };
 
       applyTheme();
-      document.addEventListener('astro:after-swap', applyTheme);
     </script>
 
   </head>
