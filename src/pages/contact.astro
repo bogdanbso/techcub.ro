@@ -11,9 +11,7 @@ import { CONTACT_EMAIL, CONTACT_PHONE, SOCIAL_LINKS } from '../lib/brand';
         Disponibil pentru proiecte noi
       </div>
       <h1 class="text-4xl font-extrabold tracking-tight">Hai să vorbim</h1>
-      <p class="mt-3 opacity-80 text-base">
-        Alege metoda cea mai comodă pentru tine. Răspund prompt la orice mesaj sau apel.
-      </p>
+      <p class="mt-3 opacity-80 text-base">Alege metoda cea mai comodă pentru tine și îți răspund cât mai repede.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -86,12 +84,15 @@ import { CONTACT_EMAIL, CONTACT_PHONE, SOCIAL_LINKS } from '../lib/brand';
     const copyText = document.getElementById('copy-text');
 
     if (copyBtn && copyText) {
-      copyBtn.addEventListener('click', () => {
+      copyBtn.addEventListener('click', async () => {
         const email = copyBtn.getAttribute('data-email') || '';
-        navigator.clipboard.writeText(email);
-        
         const originalText = copyText.innerText;
-        copyText.innerText = 'Copiat! ✓';
+        try {
+          await navigator.clipboard.writeText(email);
+          copyText.innerText = 'Copiat! ✓';
+        } catch {
+          copyText.innerText = 'Nu s-a putut copia';
+        }
 
         setTimeout(() => {
           copyText.innerText = originalText;
@@ -101,5 +102,4 @@ import { CONTACT_EMAIL, CONTACT_PHONE, SOCIAL_LINKS } from '../lib/brand';
   }
 
   setupCopyButton();
-  document.addEventListener('astro:page-load', setupCopyButton);
 </script>

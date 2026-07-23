@@ -1,5 +1,6 @@
 export const BRAND_NAME = 'Tech cu Bogdan';
 export const SITE_URL = 'https://techcub.ro';
+export const DEFAULT_OG_IMAGE = '/og-default.png';
 export const CONTACT_EMAIL = 'contact@techcub.ro';
 export const CONTACT_PHONE = '+40 774 497 894';
 
@@ -15,3 +16,5 @@ export const SOCIAL_LINKS = {
   facebook: 'https://www.facebook.com/techcub.ro/',
   instagram: 'https://www.instagram.com/techcubogdan/'
 };
+
+export const SOCIAL_PROFILES = Object.values(SOCIAL_LINKS);

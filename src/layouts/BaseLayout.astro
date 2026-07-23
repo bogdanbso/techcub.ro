@@ -2,15 +2,15 @@
 import '../styles/global.css';
 import { buildSeo } from '../lib/seo';
 import { buildLocalBusinessSchema } from '../lib/schema';
-import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  noindex?: boolean;
 }
 
-const { title, description, ogImage } = Astro.props;
+const { title, description, ogImage, noindex = false } = Astro.props;
 const seo = buildSeo({ title, description, path: Astro.url.pathname, ogImage });
 const schema = buildLocalBusinessSchema();
 ---
@@ -24,6 +24,7 @@ const schema = buildLocalBusinessSchema();
     <title>{seo.title}</title>
     <meta name="description" content={seo.description} />
     <link rel="canonical" href={seo.canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={seo.title} />
@@ -36,7 +37,7 @@ const schema = buildLocalBusinessSchema();
     <meta name="twitter:description" content={seo.description} />
     <meta name="twitter:image" content={seo.ogImage} />
 
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
     <script is:inline>
       const applyTheme = () => {
@@ -61,7 +62,6 @@ const schema = buildLocalBusinessSchema();
       document.addEventListener('astro:after-swap', applyTheme);
     </script>
 
-    <ClientRouter />
   </head>
   <body>
     <slot />

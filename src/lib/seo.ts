@@ -1,4 +1,4 @@
-import { BRAND_NAME, SITE_URL } from './brand';
+import { BRAND_NAME, DEFAULT_OG_IMAGE, SITE_URL } from './brand';
 
 export interface SeoInput {
   title: string;
@@ -9,7 +9,7 @@ export interface SeoInput {
 
 export function buildSeo({ title, description, path, ogImage }: SeoInput) {
   const canonical = new URL(path, SITE_URL).toString();
-  const imageUrl = new URL(ogImage || '/og-default.jpg', SITE_URL).toString();
+  const imageUrl = new URL(ogImage || DEFAULT_OG_IMAGE, SITE_URL).toString();
 
   return {
     title: `${title} · ${BRAND_NAME}`,

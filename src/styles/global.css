@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   :root {
@@ -12,7 +14,7 @@
   html.dark {
     --color-paper: #18191c;
     --color-card: #202226;
-    --color-ink: #f0f1f3;
+    --color-ink: #f7f6f3;
     --color-border: rgba(255, 255, 255, 0.08);
     --color-border-hover: #ffffff;
   }
@@ -22,4 +24,24 @@
     color: var(--color-ink);
     transition: background-color 0.2s ease, color 0.2s ease;
   }
+
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+}
+
+html.dark .prose {
+  --tw-prose-body: #f7f6f3;
+  --tw-prose-headings: #f7f6f3;
+  --tw-prose-links: #f7f6f3;
+  --tw-prose-bold: #f7f6f3;
+  --tw-prose-counters: #f7f6f3;
+  --tw-prose-bullets: #f7f6f3;
+  --tw-prose-hr: rgba(247, 246, 243, 0.2);
+  --tw-prose-quotes: #f7f6f3;
+  --tw-prose-quote-borders: rgba(247, 246, 243, 0.35);
 }
