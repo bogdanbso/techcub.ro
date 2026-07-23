@@ -7,7 +7,7 @@ const serviciiOrdonate = servicii.sort((a, b) => a.data.ordine - b.data.ordine);
 ---
 
 <header class="border-b border-[var(--color-border)] bg-[var(--color-paper)] sticky top-0 z-50 transition-colors">
-  <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+  <div class="max-w-2xl mx-auto px-6 h-16 flex items-center justify-between">
     <a href="/" class="font-bold text-lg tracking-tight">Tech cu Bogdan</a>
     
     <nav class="flex items-center gap-6">
@@ -24,11 +24,11 @@ const serviciiOrdonate = servicii.sort((a, b) => a.data.ordine - b.data.ordine);
           </svg>
         </button>
         
-        <div 
-          id="servicii-panel"
-          class="absolute right-0 top-full pt-2 opacity-0 translate-y-2 pointer-events-none transition-all duration-200"
-        >
-          <div class="w-80 p-2 bg-[var(--color-paper)] rounded-2xl border border-[var(--color-border)] shadow-xl flex flex-col gap-1">
+<div 
+  id="servicii-panel"
+  class="absolute top-full pt-2 opacity-0 translate-y-2 pointer-events-none transition-all duration-200 left-1/2 -translate-x-1/2 sm:left-auto sm:right-0 sm:translate-x-0"
+>
+  <div class="w-[min(20rem,calc(100vw-2rem))] p-2 bg-[var(--color-paper)] rounded-2xl border border-[var(--color-border)] shadow-xl flex flex-col gap-1">
             {serviciiOrdonate.map((s) => (
               <a 
                 href={`/servicii/${s.id}`} 
