@@ -11,15 +11,23 @@ const serviciiOrdonate = servicii.sort((a, b) => a.data.ordine - b.data.ordine);
     <a href="/" class="font-bold text-lg tracking-tight">Tech cu Bogdan</a>
     
     <nav class="flex items-center gap-6">
-      <div class="relative group">
-        <button class="flex items-center gap-1.5 text-sm font-medium opacity-80 hover:opacity-100 py-2">
+      <div class="relative">
+        <button 
+          id="servicii-trigger"
+          aria-expanded="false"
+          aria-controls="servicii-panel"
+          class="flex items-center gap-1.5 text-sm font-medium opacity-80 hover:opacity-100 py-2"
+        >
           Servicii
-          <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg id="servicii-chevron" class="w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
         
-        <div class="absolute right-0 top-full pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
+        <div 
+          id="servicii-panel"
+          class="absolute right-0 top-full pt-2 opacity-0 translate-y-2 pointer-events-none transition-all duration-200"
+        >
           <div class="w-80 p-2 bg-[var(--color-paper)] rounded-2xl border border-[var(--color-border)] shadow-xl flex flex-col gap-1">
             {serviciiOrdonate.map((s) => (
               <a 
@@ -72,6 +80,44 @@ const serviciiOrdonate = servicii.sort((a, b) => a.data.ordine - b.data.ordine);
     });
   }
 
+  function setupServiciiDropdown() {
+    const trigger = document.getElementById('servicii-trigger');
+    const panel = document.getElementById('servicii-panel');
+    const chevron = document.getElementById('servicii-chevron');
+    if (!trigger || !panel) return;
+
+    const newTrigger = trigger.cloneNode(true);
+    trigger.replaceWith(newTrigger);
+
+    const open = () => {
+      panel.classList.remove('opacity-0', 'translate-y-2', 'pointer-events-none');
+      newTrigger.setAttribute('aria-expanded', 'true');
+      chevron?.classList.add('rotate-180');
+    };
+
+    const close = () => {
+      panel.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+      newTrigger.setAttribute('aria-expanded', 'false');
+      chevron?.classList.remove('rotate-180');
+    };
+
+    newTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = newTrigger.getAttribute('aria-expanded') === 'true';
+      isOpen ? close() : open();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!panel.contains(e.target as Node) && !newTrigger.contains(e.target as Node)) close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
+  }
+
   initThemeToggle();
+  setupServiciiDropdown();
   document.addEventListener('astro:page-load', initThemeToggle);
+  document.addEventListener('astro:page-load', setupServiciiDropdown);
 </script>
